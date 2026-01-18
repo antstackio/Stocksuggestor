@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
+import { Disclaimer } from "@/components/ui/disclaimer";
 
 export default function Home() {
   const { data, isLoading, isError, error, refetch, isFetching } = usePremarketData();
@@ -62,6 +63,9 @@ export default function Home() {
 
   return (
     <div className="container mx-auto p-6 space-y-8">
+      {/* Disclaimer */}
+      <Disclaimer />
+
       {/* Header Section */}
       <div className="space-y-2">
         <div className="flex items-center justify-between">
