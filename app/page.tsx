@@ -15,11 +15,13 @@ import {
   TrendingDown,
   Eye,
   Calendar,
+  RefreshCw,
 } from "lucide-react";
 import { format } from "date-fns";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
-  const { data, isLoading, isError, error, refetch } = usePremarketData();
+  const { data, isLoading, isError, error, refetch, isFetching } = usePremarketData();
 
   if (isLoading) {
     return (
@@ -62,12 +64,26 @@ export default function Home() {
     <div className="container mx-auto p-6 space-y-8">
       {/* Header Section */}
       <div className="space-y-2">
-        <h1 className="text-4xl font-bold tracking-tight">
-          Premarket Stock Suggester
-        </h1>
-        <p className="text-lg text-muted-foreground">
-          AI-powered news-based stock signals
-        </p>
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-4xl font-bold tracking-tight">
+              Premarket Stock Suggester
+            </h1>
+            <p className="text-lg text-muted-foreground">
+              AI-powered news-based stock signals
+            </p>
+          </div>
+          <Button
+            onClick={() => refetch()}
+            disabled={isFetching}
+            variant="outline"
+            size="lg"
+            className="gap-2"
+          >
+            <RefreshCw className={`h-4 w-4 ${isFetching ? "animate-spin" : ""}`} />
+            {isFetching ? "Refreshing..." : "Refresh Data"}
+          </Button>
+        </div>
         {metadata.generated_at && (
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Calendar className="h-4 w-4" />
